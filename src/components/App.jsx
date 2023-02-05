@@ -1,16 +1,15 @@
+import Trending from './Trending/Trending';
+import SearchMovie from './SearchMovie/SearchMovie';
+import MovieDetails from './MovieDetails/MovieDetails';
+import Credits from './Credits/Credits';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      {/* <Trending /> */}
+      {/* <SearchMovie /> */}
+      <MovieDetails />
+      <Credits/>
+    </>
   );
 };

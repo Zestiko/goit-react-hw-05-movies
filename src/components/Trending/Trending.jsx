@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 // import css from './Trending.module.css'
 // import PropTypes from 'prop-types';
 
@@ -24,7 +25,11 @@ const Trending = () => {
       <h1>Trending today</h1>
       <ul>
         {trendingMoovies.map(movie => {
-          return <li key={movie.id}>{movie.title}</li>;
+          return (
+            <li key={movie.id}>
+              <Link to={`movie/${movie.id}`}>{movie.title}</Link>
+            </li>
+          );
         })}
       </ul>
       ;

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Credits = () => {
-  const [movieId, setMovieId] = useState(5);
+  const { movieId } = useParams();
+
   const [casts, setCasts] = useState([]);
 
   useEffect(() => {

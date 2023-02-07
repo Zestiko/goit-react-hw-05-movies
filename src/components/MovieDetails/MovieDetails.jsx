@@ -1,9 +1,14 @@
 import axios from 'axios';
+import { useParams, Link , Outlet} from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+const MOVIE_POSTER_LINK = 'https://image.tmdb.org/t/p/w500';
+
 const MovieDetails = () => {
-  const [movieId, setMovieID] = useState(5);
-  const [movies, setMovies] = useState({});
+  const {movieId} = useParams();
+  console.log(movieId);
+
+  const [movies, setMovies] = useState(null);
 
   useEffect(() => {
     const hendleFetch = async id => {
@@ -18,33 +23,41 @@ const MovieDetails = () => {
     };
     hendleFetch(movieId);
   }, [movieId]);
-  const { title, release_date, overview, genres } = movies;
+
+  if (movies === null) {
+    return;
+  }
+
+  const { title, release_date, overview, genres, poster_path, vote_average } =
+    movies;
 
   console.log(title);
-  console.log(release_date);
+  console.log(release_date.slice(0, 4));
+  // TODO fix bugs with dots
+  const genresPars = genres.map(({ name, id }) => {
+    const gens = `${name} `;
+    return gens
+  });
   return (
     <>
       <button type="button">Back</button>
       <div>
-        <img
-          src="https://image.tmdb.org/t/p/w500/75aHn1NOYXh4M7L5shoeQ6NGykP.jpg"
-          alt=""
-          height="500"
-        />
+        <img src={MOVIE_POSTER_LINK + poster_path} alt="Poster" height="500" />
         <div>
           <h1>{title}:</h1>
-          <p>User Score: </p>
+          <p>User Score: {vote_average} </p>
           <h2>Overview</h2>
           <p>{overview}</p>
           <h2>Genres</h2>
-          <p></p>
+          <p>{genresPars}</p>
         </div>
       </div>
       <div>
         <ul>
-          <li>Casts</li>
-          <li>Reviews</li>
+          <Link to="casts" >Casts</Link>
+          <Link to="reviews" >Reviews</Link>
         </ul>
+        <Outlet/>
       </div>
     </>
   );

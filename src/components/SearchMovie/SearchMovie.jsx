@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const BASE_URL = 'https://api.themoviedb.org/3/search/movie?';
@@ -52,7 +53,11 @@ const SearchMovie = () => {
 
       <ul>
         {Movies.map(movie => {
-          return <li key={movie.id}>{movie.title}</li>;
+          return (
+            <li key={movie.id}>
+              <Link to={`${movie.id}`}>{movie.title}</Link>
+            </li>
+          );
         })}
       </ul>
     </>

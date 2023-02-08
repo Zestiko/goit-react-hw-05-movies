@@ -1,12 +1,13 @@
 import axios from 'axios';
-import { useParams, Link , Outlet} from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
+import { useState, useEffect, Suspense } from 'react';
 
 const MOVIE_POSTER_LINK = 'https://image.tmdb.org/t/p/w500';
 
 const MovieDetails = () => {
-  const {movieId} = useParams();
-  console.log(movieId);
+  const { movieId } = useParams();
+  const location = useLocation();
+  console.log(location);
 
   const [movies, setMovies] = useState(null);
 
@@ -36,11 +37,11 @@ const MovieDetails = () => {
   // TODO fix bugs with dots
   const genresPars = genres.map(({ name, id }) => {
     const gens = `${name} `;
-    return gens
+    return gens;
   });
   return (
     <>
-      <button type="button">Back</button>
+      <Link to={location.state?.from ?? '/movie'}>Back</Link>
       <div>
         <img src={MOVIE_POSTER_LINK + poster_path} alt="Poster" height="500" />
         <div>
@@ -54,10 +55,16 @@ const MovieDetails = () => {
       </div>
       <div>
         <ul>
-          <Link to="casts" >Casts</Link>
-          <Link to="reviews" >Reviews</Link>
+          <Link to="casts" state={{ from: location.state?.from }}>
+            Casts
+          </Link>
+          <Link to="reviews" state={{ from: location.state?.from }}>
+            Reviews
+          </Link>
         </ul>
-        <Outlet/>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );

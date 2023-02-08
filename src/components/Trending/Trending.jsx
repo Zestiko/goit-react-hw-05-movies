@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 // import css from './Trending.module.css'
 // import PropTypes from 'prop-types';
 
@@ -9,6 +9,7 @@ const BASE_URL =
 
 const Trending = () => {
   const [trendingMoovies, setTrendingMoovies] = useState([]);
+  const location = useLocation();
   useEffect(() => {
     const handleFetch = async () => {
       try {
@@ -27,7 +28,9 @@ const Trending = () => {
         {trendingMoovies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`movie/${movie.id}`}>{movie.title}</Link>
+              <Link to={`movie/${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </Link>
             </li>
           );
         })}

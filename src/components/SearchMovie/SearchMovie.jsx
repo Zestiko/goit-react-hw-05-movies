@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const BASE_URL = 'https://api.themoviedb.org/3/search/movie?';
@@ -7,13 +7,15 @@ const API_KEY = '30c2328b2ce92a2dec1b35516df54c65';
 
 const SearchMovie = () => {
   const [query, setQuery] = useState('');
-  const [movieName, setMovieName] = useState('');
   const [Movies, setMovies] = useState([]);
-  const firstRender = useRef(true);
+  const [searchParams, setSerchParams] = useSearchParams();
+
+  const location = useLocation();
+  const movieName = searchParams.get('query');
+
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current= false;
-      return
+    if (!movieName) {
+      return;
     }
     const handleFetch = async value => {
       try {
@@ -35,7 +37,7 @@ const SearchMovie = () => {
   };
   const handelSubmit = e => {
     e.preventDefault();
-    setMovieName(query);
+    setSerchParams({ query });
     setQuery('');
   };
   return (
@@ -55,7 +57,7 @@ const SearchMovie = () => {
         {Movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.title}</Link>
+              <Link to={`${movie.id}`} state={{from: location}}>{movie.title}</Link>
             </li>
           );
         })}

@@ -1,0 +1,34 @@
+.navLink {
+  padding: 7px;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-decoration: none;
+  background-color: teal;
+}
+
+.navLinkActive {
+  padding: 7px;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-decoration: none;
+  background-color: #0ee5a1;
+}
+.list {
+  display: flex;
+  gap: 15px;
+}
+.back {
+  padding: 7px;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-decoration: none;
+  background-color: teal;
+  display: inline-block;
+  margin: 10px 5px;
+}
+.back:hover {
+  background-color: #0ee5a1;
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 // import css from './Trending.module.css'
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const BASE_URL =
   'https://api.themoviedb.org/3/trending/movie/day?api_key=30c2328b2ce92a2dec1b35516df54c65';
@@ -25,11 +25,11 @@ const Trending = () => {
     <>
       <h1>Trending today</h1>
       <ul>
-        {trendingMoovies.map(movie => {
+        {trendingMoovies.map(({id, title}) => {
           return (
-            <li key={movie.id}>
-              <Link to={`movie/${movie.id}`} state={{ from: location }}>
-                {movie.title}
+            <li key={id}>
+              <Link to={`movie/${id}`} state={{ from: location }}>
+                {title}
               </Link>
             </li>
           );
@@ -42,3 +42,12 @@ const Trending = () => {
 };
 
 export default Trending;
+
+Trending.propTypes = {
+  trendingMoovies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+};

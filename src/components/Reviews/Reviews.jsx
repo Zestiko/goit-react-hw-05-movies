@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -20,7 +21,9 @@ const Reviews = () => {
     };
     handleFetch(movieId);
   }, [movieId]);
-
+  if (reviews.length === 0) {
+    return <p>We don't have reviews for this movie.</p>;
+  }
   return (
     <>
       <ul>
@@ -38,3 +41,12 @@ const Reviews = () => {
 };
 
 export default Reviews;
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ),
+};

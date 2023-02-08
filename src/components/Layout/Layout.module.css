@@ -5,3 +5,31 @@
 .notactive {
   color: red;
 }
+
+.header {
+  background-color: aliceblue;
+  border: 1px solid black;
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+.navLink {
+  padding: 7px;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-decoration: none;
+  background-color: teal;
+}
+
+.navLinkActive {
+  padding: 7px;
+  color: #fff;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-decoration: none;
+ background-color: #0ee5a1;
+}

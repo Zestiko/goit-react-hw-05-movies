@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +8,7 @@ const API_KEY = '30c2328b2ce92a2dec1b35516df54c65';
 
 const SearchMovie = () => {
   const [query, setQuery] = useState('');
-  const [Movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [searchParams, setSerchParams] = useSearchParams();
 
   const location = useLocation();
@@ -46,7 +47,7 @@ const SearchMovie = () => {
         <input
           onChange={handelChange}
           type="text"
-          placeholder="Search images and photos"
+          placeholder="Search movie"
           name="query"
           value={query}
         />
@@ -54,10 +55,12 @@ const SearchMovie = () => {
       </form>
 
       <ul>
-        {Movies.map(movie => {
+        {movies.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`${movie.id}`} state={{from: location}}>{movie.title}</Link>
+              <Link to={`${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </Link>
             </li>
           );
         })}
@@ -67,3 +70,13 @@ const SearchMovie = () => {
 };
 
 export default SearchMovie;
+
+SearchMovie.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    })
+  ),
+};

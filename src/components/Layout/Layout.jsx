@@ -1,22 +1,33 @@
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import css from './Layout.module.css';
 
 // TODO styleComponents (1:25)
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <>
-      <header>
+      <header className={css.header}>
         <nav>
-          <ul>
+          <ul className={css.nav}>
             <li>
-              <Link to="" className={css.notactive}>
+              <NavLink
+                to=""
+                className={({ isActive }) =>
+                  isActive ? css.navLinkActive : css.navLink
+                }
+              >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="movie" className={css.active}>
+              <NavLink
+                to="movie"
+                className={({ isActive }) =>
+                  isActive ? css.navLinkActive : css.navLink
+                }
+              >
                 Movie
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -28,3 +39,7 @@ const Layout = ({children}) => {
 };
 
 export default Layout;
+
+Layout.propTypes = {
+  children: PropTypes.element,
+};
